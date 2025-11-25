@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import portraitImage from "@/assets/psychologist-portrait.jpg";
 import { Heart, Brain, Users, BookOpen } from "lucide-react";
 
 const About = () => {
+  const portraitImageUrl = "https://res.cloudinary.com/dgrd5ktrg/image/upload/v1764045876/dorita_us6wkq.jpg";
+
   const competencies = [
     {
       icon: Heart,
@@ -55,7 +56,7 @@ const About = () => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-xl">
               <img
-                src={portraitImage}
+                src={portraitImageUrl}
                 alt="Dorita Crizólogo - Psicóloga Infantil"
                 className="w-full h-auto object-cover"
               />

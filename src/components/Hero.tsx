@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-image.jpg";
 import { MessageCircle } from "lucide-react";
 
 const Hero = () => {
+
+  const heroImageUrl = "https://res.cloudinary.com/dgrd5ktrg/image/upload/c_crop,w_500,h_350/v1764045876/dorita_us6wkq.jpg";
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/5">
       <div className="container mx-auto px-4 py-20">
@@ -39,14 +41,15 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Button
-                size="lg"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                onClick={() => window.open("https://wa.me/51999999999?text=Hola,%20me%20gustaría%20agendar%20una%20consulta", "_blank")}
-              >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                Agenda una consulta
-              </Button>
+              <a href="#contacto">
+                <Button
+                  size="lg"
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  Agenda una consulta
+                </Button>
+              </a>
             </motion.div>
           </motion.div>
 
@@ -58,7 +61,7 @@ const Hero = () => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src={heroImage}
+                src={heroImageUrl}
                 alt="Dorita Crizólogo trabajando con niños"
                 className="w-full h-auto object-cover"
               />

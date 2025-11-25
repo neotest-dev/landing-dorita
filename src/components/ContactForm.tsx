@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
@@ -22,8 +22,15 @@ type FormData = z.infer<typeof formSchema>;
 
 const ContactForm = () => {
   const { toast } = useToast();
-  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors }, reset, control } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      consultType: "",
+      message: "",
+    },
   });
 
   const onSubmit = (data: FormData) => {
@@ -155,20 +162,26 @@ const ContactForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="consultType">Tipo de consulta *</Label>
-                <Select onValueChange={(value) => register("consultType").onChange({ target: { value } })}>
-                  <SelectTrigger className={errors.consultType ? "border-destructive" : ""}>
-                    <SelectValue placeholder="Selecciona una opción" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-popover">
-                    <SelectItem value="evaluacion">Evaluación psicológica</SelectItem>
-                    <SelectItem value="terapia">Terapia infantil</SelectItem>
-                    <SelectItem value="familiar">Consejería familiar</SelectItem>
-                    <SelectItem value="talleres">Talleres para niños</SelectItem>
-                    <SelectItem value="informes">Informes psicológicos</SelectItem>
-                    <SelectItem value="otro">Otro</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label>Tipo de consulta *</Label>
+                <Controller
+                  name="consultType"
+                  control={control}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className={errors.consultType ? "border-destructive" : ""}>
+                        <SelectValue placeholder="Selecciona una opción" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-popover">
+                        <SelectItem value="evaluacion">Evaluación psicológica</SelectItem>
+                        <SelectItem value="terapia">Terapia infantil</SelectItem>
+                        <SelectItem value="familiar">Consejería familiar</SelectItem>
+                        <SelectItem value="talleres">Talleres para niños</SelectItem>
+                        <SelectItem value="informes">Informes psicológicos</SelectItem>
+                        <SelectItem value="otro">Otro</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
                 {errors.consultType && (
                   <p className="text-sm text-destructive">{errors.consultType.message}</p>
                 )}
